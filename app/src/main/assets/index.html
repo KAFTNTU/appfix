@@ -3,7 +3,7 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>RoboScratch</title>
     <link rel="icon" href="data:,">
     
@@ -26,11 +26,6 @@
             --quad-layout-shift-mobile: 5%;
         }
         
-        html {
-            height: 100%;
-            overflow: hidden;
-        }
-
         body {
             overscroll-behavior: none;
             touch-action: none;
@@ -38,11 +33,9 @@
             font-family: 'Segoe UI', Roboto, sans-serif;
             background-color: #0f172a;
             color: white;
-            overflow: hidden;
-            height: 100%;
-            margin: 0;
-            padding: 0;
+            overflow: hidden; 
         }
+        
         .glass-header {
             background: rgba(15, 23, 42, 0.9);
             backdrop-filter: blur(12px);
@@ -53,7 +46,6 @@
         body.scratch-mode header.glass-header { display: none !important; }
         body.scratch-mode main { padding-top: 0 !important; }
         body.scratch-mode .sensor-row { top: 10px !important; }
-        body.scratch-mode #blocklyDiv { top: 0 !important; }
 
         #joystick-container { 
             position: relative; 
@@ -151,10 +143,10 @@
 
         #blocklyDiv { 
             position: absolute; 
-            top: 0px; 
+            top: 64px; 
             left: 0; 
             right: 0; 
-            bottom: 0; 
+            bottom: 0px; 
             background-color: #0f172a !important; 
             z-index: 1;
         }
@@ -164,27 +156,24 @@
         .blocklyToolboxDiv { 
             background-color: #1f2937 !important; 
             border: 1px solid rgba(255, 255, 255, 0.15); 
-            border-bottom: none !important;
             position: absolute !important; 
-            bottom: 0px !important; 
-            left: 0 !important; 
-            right: 0 !important;
-            transform: none !important; 
+            bottom: 20px !important; 
+            left: 50% !important; 
+            transform: translateX(-50%) !important; 
             top: auto !important; 
-            height: auto !important; 
-            width: 100% !important; 
-            min-width: unset !important;
+            height: 70px !important; 
+            width: fit-content !important; 
+            min-width: 300px; 
             display: flex !important; 
             flex-direction: row !important; 
-            flex-wrap: wrap !important;
             align-items: center; 
             justify-content: center; 
-            border-radius: 16px 16px 0 0 !important; 
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.5); 
-            z-index: 0; 
-            padding: 8px 10px calc(10px + env(safe-area-inset-bottom, 0px)) 10px !important;
+            border-radius: 16px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6); 
+            z-index: 40; 
+            padding: 0 10px; 
         }
-        .blocklyTreeRow { height: 0px !important; padding: 0 12px !important; margin: 0 4px !important; border-radius: 10px !important; cursor: pointer; display: flex; align-items: center; justify-content: center; border: 1px solid transparent; }
+        .blocklyTreeRow { height: 48px !important; padding: 0 12px !important; margin: 0 4px !important; border-radius: 10px !important; cursor: pointer; display: flex; align-items: center; justify-content: center; border: 1px solid transparent; }
         .blocklyTreeLabel { font-family: 'Segoe UI', sans-serif; font-weight: 700; font-size: 13px !important; color: white !important; }
         .blocklyTreeSelected .blocklyTreeRow { background-color: #374151 !important; border: 1px solid #60a5fa !important;}
         
@@ -312,11 +301,11 @@
         .btn-check-input { display: none; }
 
 body.layout-mobile .blocklyToolboxDiv{
-  bottom: 4px !important;
+  bottom: 64px !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
   top: auto !important;
-  height: 0px !important;
+  height: 70px !important;
   width: fit-content !important;
   display: flex !important;
   flex-direction: row !important;
@@ -337,7 +326,7 @@ body.layout-desktop .blocklyToolboxDiv{
   top: 104px !important;
   bottom: 84px !important;
   transform: none !important;
-  width: 480px !important;
+  width: 240px !important;
   height: auto !important;
   display: flex !important;
   flex-direction: column !important;
@@ -440,12 +429,43 @@ body.layout-mobile #blocklyDiv { bottom: 64px !important; }
             width: 44px !important;
             height: 44px !important;
             border-radius: 14px !important;
-            
             border: 1px solid rgba(148,163,184,0.22) !important;
             color: #e2e8f0 !important;
         }
         body.layout-mobile .sensor-row .top-btn:hover { transform: none !important; }
         body.layout-mobile .sensor-row .top-btn:active { transform: translateY(1px) !important; }
+
+        /* ===== Bluetooth кнопка: кольори на мобільному (перекриваємо !important вище) ===== */
+        body.layout-mobile .sensor-row .btn-bt-mini.bt-off {
+            background: rgba(248,113,113,0.18) !important;
+            border: 1px solid rgba(248,113,113,0.55) !important;
+            color: rgba(248,113,113,0.95) !important;
+        }
+        body.layout-mobile .sensor-row .btn-bt-mini.bt-on {
+            background: rgba(34,197,94,0.18) !important;
+            border: 1px solid rgba(34,197,94,0.55) !important;
+            color: rgba(34,197,94,0.95) !important;
+        }
+        body.layout-mobile .sensor-row .btn-bt-mini.bt-off:hover {
+            background: rgba(248,113,113,0.28) !important;
+        }
+        body.layout-mobile .sensor-row .btn-bt-mini.bt-on:hover {
+            background: rgba(34,197,94,0.28) !important;
+        }
+        /* Кнопка завантаження на мобільному */
+        body.layout-mobile .sensor-row .btn-upload {
+            background: linear-gradient(135deg, rgba(168,85,247,0.85), rgba(139,92,246,0.85)) !important;
+            border: 1px solid rgba(168,85,247,0.55) !important;
+            color: #fff !important;
+        }
+        body.layout-mobile .sensor-row .btn-upload.uploading {
+            background: linear-gradient(135deg,rgba(251,191,36,.88),rgba(245,158,11,.88)) !important;
+            border-color: rgba(251,191,36,0.55) !important;
+        }
+        body.layout-mobile .sensor-row .btn-upload.done {
+            background: linear-gradient(135deg,rgba(34,197,94,.88),rgba(16,185,129,.88)) !important;
+            border-color: rgba(34,197,94,0.55) !important;
+        }
         .sensor-row::-webkit-scrollbar { display: none; } 
 
         @media (max-width: 380px) {
@@ -464,6 +484,16 @@ body.layout-mobile #blocklyDiv { bottom: 64px !important; }
             border: 1px solid rgba(34,197,94,0.35);
         }
         .btn-step:hover { background: rgba(34,197,94,0.26); }
+        .btn-upload {
+            background: linear-gradient(135deg, rgba(168,85,247,0.85), rgba(139,92,246,0.85));
+            border: 1px solid rgba(168,85,247,0.5) !important;
+        }
+        .btn-upload:hover  { background: linear-gradient(135deg, rgba(192,132,252,0.9), rgba(167,139,250,0.9)); transform: translateY(-1px); }
+        .btn-upload:active { transform: scale(0.9); }
+        .btn-upload.uploading { background: linear-gradient(135deg,rgba(251,191,36,.85),rgba(245,158,11,.85)) !important; border-color: rgba(251,191,36,.5) !important; animation: pulse-upl 1s infinite; }
+        .btn-upload.done      { background: linear-gradient(135deg,rgba(34,197,94,.85),rgba(16,185,129,.85)) !important; border-color: rgba(34,197,94,.5) !important; }
+        @keyframes pulse-upl { 0%,100%{box-shadow:0 0 0 0 rgba(251,191,36,.4)} 50%{box-shadow:0 0 0 6px rgba(251,191,36,0)} }
+
 
 :root{
   --ui-glass: rgba(14,22,40,.42);
@@ -488,7 +518,7 @@ main.flex-1.relative{
   background-color: var(--ui-glass) !important;
   border: 1px solid var(--ui-stroke) !important;
   border-radius: 999px !important;
-  margin: calc(env(safe-area-inset-top, 0px) + 14px) 16px 0 !important;
+  margin: 14px 16px 0 !important;
   height: 54px !important;
   padding: 8px 10px !important;
   box-shadow: var(--ui-shadow2) !important;
@@ -872,8 +902,8 @@ select, option{
   --joystick-ui-x-desktop: -27px;
   --joystick-ui-y-desktop: 300px;
 
-  --joystick-ui-x-mobile: 0px;
-  --joystick-ui-y-mobile: 400px;
+  --joystick-ui-x-mobile: 2px;
+  --joystick-ui-y-mobile: 340px;
 
   --joystick-ui-x: var(--joystick-ui-x-desktop);
   --joystick-ui-y: var(--joystick-ui-y-desktop);
@@ -945,7 +975,7 @@ select, option{
 
 </style>
 </head>
-<body class="w-screen flex flex-col">
+<body class="h-screen w-screen flex flex-col">
 
     <header class="h-16 glass-header flex items-center justify-between px-4 z-50 absolute top-0 w-full">
         <div class="flex items-center gap-2">
@@ -974,7 +1004,7 @@ select, option{
         </button>
     </header>
 
-    <main class="flex-1 relative overflow-hidden bg-gradient-to-br from-slate-900 to-slate-950" style="padding-top: calc(env(safe-area-inset-top, 0px) + 4rem); min-height: 0;">
+    <main class="flex-1 relative overflow-hidden bg-gradient-to-br from-slate-900 to-slate-950 pt-16">
 
         <section id="view-joystick" class="absolute inset-0 flex flex-col items-center justify-center p-4 transition-opacity duration-300 relative">
 
@@ -1053,7 +1083,13 @@ select, option{
                 <button id="rcDbgStep" class="top-btn btn-step" title="Крок (перемотка)">
                     <i class="fa-solid fa-forward-step"></i>
                 </button>
+                <button id="uploadProgBtn" onclick="uploadToRobot()" class="top-btn btn-upload" title="📤 Завантажити програму в робота (Ctrl+U)">
+                    <i id="uploadProgIcon" class="fa-solid fa-upload"></i>
+                </button>
 
+                <button onclick="openSim2D()" class="top-btn btn-sim" title="Траса / Сумо онлайн">
+                    <i class="fa-solid fa-flag-checkered"></i>
+                </button>
             </div>
 <div id="blocklyDiv" class="flex-1 mt-0"></div>
         <!-- Кастомний скролбар для flyout на мобільному -->
@@ -1661,12 +1697,7 @@ const SLIP_END = 0xC0;
                 } else {
                     finalPacket = raw;
                 }
-                try {
-                    if(typeof Android !== 'undefined') {
-                        const arr = new Uint8Array(finalPacket.buffer || finalPacket);
-                        Android.sendBytes(Array.from(arr).map(b => ('0'+((b&0xFF).toString(16))).slice(-2)).join(''));
-                    }
-                } catch(e) { log("TX Fail: " + e.message, 'err'); }
+                try { await characteristic.writeValue(finalPacket); } catch(e) { log("TX Fail: " + e.message, 'err'); }
             }
         }
 
@@ -1676,12 +1707,7 @@ const SLIP_END = 0xC0;
              if (tuning.useSlip) {
                  finalPacket = slipEncode(new Uint8Array(data.buffer));
              }
-             try {
-                if(typeof Android !== 'undefined') {
-                    const arr = new Uint8Array(finalPacket.buffer || finalPacket);
-                    Android.sendBytes(Array.from(arr).map(b => ('0'+((b&0xFF).toString(16))).slice(-2)).join(''));
-                }
-             } catch(e) {}
+             try { await characteristic.writeValue(finalPacket); } catch(e) {}
         }
 
         async function sendTextData(str) {
@@ -1691,62 +1717,64 @@ const SLIP_END = 0xC0;
              if (tuning.useSlip) {
                  finalPacket = slipEncode(raw);
              }
-            try {
-                if(typeof Android !== 'undefined') {
-                    const arr = new Uint8Array(finalPacket.buffer || finalPacket);
-                    Android.sendBytes(Array.from(arr).map(b => ('0'+((b&0xFF).toString(16))).slice(-2)).join(''));
-                    log(`Cmd: ${str}`, 'tx');
-                }
-            } catch(e) { log(e, 'err'); }
+            try { await characteristic.writeValue(finalPacket); log(`Cmd: ${str}`, 'tx'); } catch(e) { log(e, 'err'); }
         }
 
         btnConnect.addEventListener('click', async () => {
-            if(isConnected) {
-                if(typeof Android !== 'undefined') Android.disconnect();
-                return;
-            }
-            if(typeof Android !== 'undefined') {
-                Android.connect();
-            } else {
-                log('Android BLE bridge not available', 'err');
+            if(isConnected) { if(device) device.gatt.disconnect(); return; }
+            try {
+                log('Scanning...', 'info');
+                device = await navigator.bluetooth.requestDevice({
+                    acceptAllDevices: true,
+                    optionalServices: [0xFFE0, "6e400001-b5a3-f393-e0a9-e50e24dcca9e"]
+                });
+                device.addEventListener('gattserverdisconnected', () => {
+                    isConnected = false; window.isConnected = false; window.characteristic = null; statusDot.classList.remove('connected'); statusText.innerText = "OFFLINE";
+                    setScratchBtState(false);
+                    btnConnect.classList.remove('bg-red-600'); btnConnect.classList.add('bg-blue-600');
+                    log('⚠️ BT: З\'єднання втрачено (' + (device ? device.name : '?') + ')', 'err');
+                });
+                const server = await device.gatt.connect();
+                let service;
+                try { service = await server.getPrimaryService(0xFFE0); characteristic = await service.getCharacteristic(0xFFE1); } 
+                catch(e) { service = await server.getPrimaryService("6e400001-b5a3-f393-e0a9-e50e24dcca9e"); characteristic = await service.getCharacteristic("6e400002-b5a3-f393-e0a9-e50e24dcca9e"); }
+
+                try {
+                    await characteristic.startNotifications();
+                    characteristic.addEventListener('characteristicvaluechanged', (e) => {
+                        const rawData = new Uint8Array(e.target.value.buffer);
+                        
+                        if (tuning.useSlip) {
+                            for(let i=0; i<rawData.length; i++) {
+                                processSlipData(rawData[i]);
+                            }
+                        } else {
+                             handlePacket(Array.from(rawData));
+                        }
+                    });
+                } catch(e){}
+
+                isConnected = true; window.isConnected = true; window.characteristic = characteristic; statusDot.classList.add('connected'); statusText.innerText = "ONLINE";
+                setScratchBtState(true);
+                btnConnect.classList.remove('bg-blue-600'); btnConnect.classList.add('bg-red-600');
+                log('✅ BT: Підключено до ' + (device ? device.name : 'пристрою'), 'info');
+            } catch(e) {
+                /* Детальне логування помилок підключення */
+                let errMsg = '';
+                if (e && e.name === 'NotFoundError') {
+                    errMsg = '❌ BT: Пристрій не обрано (скасовано)';
+                } else if (e && e.name === 'SecurityError') {
+                    errMsg = '❌ BT: Немає дозволу. Потрібен HTTPS або localhost';
+                } else if (e && e.name === 'NetworkError') {
+                    errMsg = '❌ BT: GATT з\'єднання не вдалося (пристрій поруч?)';
+                } else if (e && e.name === 'NotSupportedError') {
+                    errMsg = '❌ BT: Bluetooth не підтримується браузером';
+                } else {
+                    errMsg = '❌ BT: ' + (e ? (e.message || String(e)) : 'Невідома помилка');
+                }
+                log(errMsg, 'err');
             }
         });
-
-        // Called from Android Kotlin when BLE connects
-        window.onBleConnected = function() {
-            isConnected = true;
-            statusDot.classList.add('connected');
-            statusText.innerText = 'ONLINE';
-            setScratchBtState(true);
-            btnConnect.classList.remove('bg-blue-600');
-            btnConnect.classList.add('bg-red-600');
-            log('Connected!', 'info');
-        };
-
-        // Called from Android Kotlin when BLE disconnects
-        window.onBleDisconnected = function() {
-            isConnected = false;
-            statusDot.classList.remove('connected');
-            statusText.innerText = 'OFFLINE';
-            setScratchBtState(false);
-            btnConnect.classList.remove('bg-red-600');
-            btnConnect.classList.add('bg-blue-600');
-            log('Disconnected', 'err');
-        };
-
-        // Called from Android Kotlin with hex string of received bytes
-        window.onBleData = function(hexStr) {
-            if(!hexStr || hexStr.length < 2) return;
-            const bytes = hexStr.match(/.{1,2}/g).map(b => parseInt(b, 16));
-            const rawData = new Uint8Array(bytes);
-            if (tuning.useSlip) {
-                for(let i=0; i<rawData.length; i++) {
-                    processSlipData(rawData[i]);
-                }
-            } else {
-                handlePacket(Array.from(rawData));
-            }
-        };
 
         function toggleScratchMode(force) {
 
@@ -2487,8 +2515,17 @@ function validateWorkspace() {
         
         setTimeout(() => { if (workspace) { workspace.createVariable('x'); } }, 1000);
         window.sendDrivePacket = sendDrivePacket;
+        window.isConnected = isConnected;
+        window.characteristic = characteristic || null;
+
+        /* sendCarPacket — використовується в генерованому Scratch коді.
+           L/R → мотори A+C = ліві, B+D = праві */
+        window.sendCarPacket = async function(l, r) {
+            await sendDrivePacket(l, r, l, r);
+        };
     </script>
      <script src="blocks_car_fixed3.js"></script>
+     <script src="stm_compiler.js"></script>
   <script>
   // === Патч кольорів: блоки = колір категорії ===
   (function patchBlockColours() {
@@ -2655,8 +2692,19 @@ function ensureLogExportButton(){
   <script src="https://unpkg.com/three@0.155.0/build/three.min.js"></script>
   <script src="https://unpkg.com/three@0.155.0/examples/js/controls/OrbitControls.js"></script>
   <script src="https://unpkg.com/three@0.155.0/examples/js/loaders/GLTFLoader.js"></script>
-  <!-- rc_sim2d_3d_overlay removed -->
-  <!-- rc_sim2d_online.js removed (not needed for offline BLE app) -->
-  <!-- rc_sim2d_core removed -->
+  <script src="rc_sim2d_3d_overlay.js"></script>
+  <script src="rc_sim2d_online.js"></script>
+  <script src="rc_sim2d_core.js"></script>
+
+<script>
+/* Ctrl+U = Upload to robot */
+document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.key === 'u') {
+        e.preventDefault();
+        if (typeof window.uploadToRobot === 'function') window.uploadToRobot();
+    }
+});
+</script>
+
 </body>
 </html>
